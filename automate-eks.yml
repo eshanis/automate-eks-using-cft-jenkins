@@ -1,0 +1,30 @@
+Resources:
+  Cluster:
+    Type: AWS::EKS::Cluster
+    Properties:
+      Name: eshani-EKS-node13
+      RoleArn: arn:aws:iam::388328004932:role/AWSEKSRole
+      Version: "1.25"
+      ResourcesVpcConfig:
+        SecurityGroupIds:
+          - sg-06b9c2f393d81edfb 
+        SubnetIds:
+          - subnet-0d43564d38acc22e5
+          - subnet-0b7a5cbdc6acb38dc
+  Nodegroup:
+    Type: AWS::EKS::Nodegroup
+    DependsOn: Cluster
+    Properties:
+      ClusterName: eshani-EKS-node13
+      NodegroupName: eshaniNodegroup13
+      InstanceTypes:
+        - t2.micro
+      DiskSize: 8
+      NodeRole: arn:aws:iam::388328004932:role/eks-node-group
+      ScalingConfig:
+        MinSize: 2
+        DesiredSize: 3
+        MaxSize: 4
+      Subnets:
+        - subnet-0d43564d38acc22e5
+        - subnet-0b7a5cbdc6acb38dc
