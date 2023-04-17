@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-demo2
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: web2
+  template:
+    metadata:
+      labels:
+        app: web2
+    spec:
+      containers:
+        - name: back-end2
+          image: 388328004932.dkr.ecr.us-east-1.amazonaws.com/eshani-eks-webapp:latest
+          ports:
+            - containerPort: 3000
